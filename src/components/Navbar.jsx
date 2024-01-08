@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import { URL } from "./helders/url";
 
 export default function Navbar() {
+  const setlanguage = (e) => {
+    let lang = e.target.innerHTML;
+    if (lang === "English") {
+      e.target.innerHTML = "Hindi";
+      window.localStorage.setItem("lang", "hi")
+    } else {
+      e.target.innerHTML = "English";
+      window.localStorage.setItem("lang", "en")
+
+    }
+  };
   const [logo, setLogo] = useState("");
   useEffect(() => {
     fetch(`${URL}/api/logo?populate=*`)
@@ -50,6 +61,14 @@ export default function Navbar() {
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
+              </li>
+              <li>
+                <button
+                  className="btn btn-success"
+                  onClick={(e) => setlanguage(e)}
+                >
+                  English
+                </button>
               </li>
               {window.localStorage.getItem("Jwt_token") === null && (
                 <>
