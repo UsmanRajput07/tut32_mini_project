@@ -67,7 +67,7 @@ export default function Navbar() {
                   className="btn btn-success"
                   onClick={(e) => setlanguage(e)}
                 >
-                  English
+                  {window.localStorage.getItem("langtext")}
                 </button>
               </li>
               {window.localStorage.getItem("Jwt_token") === null && (
@@ -95,7 +95,7 @@ export default function Navbar() {
                     <button
                       className="btn btn-danger"
                       onClick={() => {
-                        window.localStorage.removeItem("Jwt_token");
+                        window.localStorage.clear();
                         window.location.href = "/";
                       }}
                     >

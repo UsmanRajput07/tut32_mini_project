@@ -13,23 +13,29 @@ export default function Login() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    }).then((res)=>res.json()).then((data)=>{
-      data["jwt"] === undefined
-      ? Swal.fire({
-          title: "Error",
-          text: "user has been Already exsites",
-          icon: "error",
-        })
-      : Swal.fire({
-          title: "Good job!",
-          text: "USER login!",
-          icon: "success",
-        }).then(()=>{
-          window.localStorage.setItem("Jwt_token", data["jwt"])
-          window.location.href = "/BusinessRegister"
-        })
-      
-    }).catch(err=>err)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data["jwt"] === undefined
+          ? Swal.fire({
+              title: "Error",
+              text: "user has been Already exsites",
+              icon: "error",
+            })
+          : Swal.fire({
+              title: "Good job!",
+              text: "USER login!",
+              icon: "success",
+            }).then(() => {
+              window.localStorage.setItem("Jwt_token", data["jwt"]);
+              window.localStorage.setItem("username", data.user.username);
+              window.localStorage.setItem("email", data.user.email);
+              window.localStorage.setItem("lang", "en");
+              window.localStorage.setItem("langtext", "English");
+              window.location.href = "/BusinessRegister";
+            });
+      })
+      .catch((err) => err);
   };
 
   return (
